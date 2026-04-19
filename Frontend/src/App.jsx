@@ -1,12 +1,18 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Body from './components/Body';
 
+ 
 function App() {
   return(
-    <div >
-      <h1>kaertik </h1>
-      <h2>hello world</h2>
-    </div>
-  )
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Body />}/>
+    </Routes>
+
+
+    </BrowserRouter>
+  );
 }
 
 export default App;

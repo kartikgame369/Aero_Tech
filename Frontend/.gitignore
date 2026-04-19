@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 UI materials-20260418T180644Z-3-001
 public
+package-lock.json
