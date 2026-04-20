@@ -20,9 +20,21 @@ AuthRouter.post("/signup", async(req, res) => {
       password: passwordHash,
     });
     await user.save();
-    res.send("user added sucessfully");
+    res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        emailId: user.emailId
+      }
+    });
   } catch(error){
-    res.status(400).send("error something wrong" + error.message);
+    res.status(400).json({
+      success: false,
+      message: error.message || "Signup failed"
+    });
   }
 });
 AuthRouter.post("/login", async(req,res)=>{
@@ -30,27 +42,48 @@ AuthRouter.post("/login", async(req,res)=>{
     try{
         const { emailId , password } = req.body;
         if(!emailId || !password){
-            throw new Error("signup frist then login go to sign up page");
+            return res.status(400).json({
+              success: false,
+              message: "Please provide email and password"
+            });
         }
         const user = await User.findOne({emailId:emailId})
         if(!user){
-            throw new Error("not present")
+            return res.status(401).json({
+              success: false,
+              message: "User not found. Please sign up first"
+            });
         }
         const isPasswordValid = await bcrypt.compare(password,user.password);
         if(isPasswordValid){
             const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET,{ expiresIn: "1d" });
-            // console.log(token);
             res.cookie("token",token,{
                 httpOnly:true
             });
-            res.send(user,"login successfully");
+            res.status(200).json({
+              success: true,
+              message: "Login successful",
+              token: token,
+              user: {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                emailId: user.emailId
+              }
+            });
         }
         else{
-            throw new Error("password is not correct ")
+            res.status(401).json({
+              success: false,
+              message: "Password is incorrect"
+            });
         }
 
     }catch(error){
-        res.status(400).send("error"+ error.message)
+        res.status(400).json({
+          success: false,
+          message: error.message || "Login failed"
+        });
     }
 
 });
@@ -58,7 +91,10 @@ AuthRouter.post("/logout", async(req,res)=>{
     res.cookie("token",null,{
         expires:new Date(Date.now())
     });
-    res.send("logout successfully");
+    res.status(200).json({
+      success: true,
+      message: "Logout successful"
+    });
 });
 AuthRouter.post("/forgot-password", async(req, res)=>{
     try{

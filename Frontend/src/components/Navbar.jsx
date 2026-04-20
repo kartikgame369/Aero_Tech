@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function NavBar({ userProfileImage }){
+    const navigate = useNavigate()
     const [isLoginOpen, setIsLoginOpen] = useState(false)
 
     return(
@@ -53,7 +54,7 @@ function NavBar({ userProfileImage }){
 
                     {/* Login/Signup Button */}
                     <button 
-                        onClick={() => setIsLoginOpen(!isLoginOpen)}
+                        onClick={() => navigate('/auth')}
                         className='bg-green-600 hover:bg-green-700 px-6 py-2 rounded font-semibold transition'
                     >
                         Login/Signup

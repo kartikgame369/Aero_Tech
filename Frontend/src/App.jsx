@@ -8,6 +8,7 @@ import Team from './pages/Team';
 import Testimonials from './pages/Testimonials';
 import Blog from './pages/Blog';
 import DiseaseDetection from './pages/DiseaseDetection';
+import Auth from './pages/Auth';
 
  
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <NavBar />
     <Routes>
       <Route path="/" element={<Home />}/>
+      <Route path="/auth" element={<Auth />}/>
       <Route path="/services" element={<Services />}/>
       <Route path="/services/disease-detection" element={<DiseaseDetection />}/>
       <Route path="/team" element={<Team />}/>
