@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function NavBar({ userProfileImage }){
     const [isLoginOpen, setIsLoginOpen] = useState(false)
 
     return(
-        <nav className='bg-black text-white px-8 py-4'>
+        <nav className='bg-black text-white px-8 py-4 sticky top-0 z-50'>
             <div className='flex items-center justify-between'>
                 {/* Logo and Brand Name */}
-                <div className='flex items-center gap-3'>
-                    <img src='UI material-20260418T180644Z-3-001/UI material/Home/header logo.png' alt='AeroTech Logo' className='h-10 w-60' />
-                    
-                </div>
+                <Link to="/" className='flex items-center gap-3 hover:opacity-80 transition'>
+                    <img src='UI material-20260418T180644Z-3-001/UI material/Home/header logo.png' alt='AeroTech Logo' className='h-10 w-50' />   
+                </Link>
 
                 {/* Navigation Items */}
                 <ul className='flex items-center gap-8'>
-                    <li className='hover:text-green-500 cursor-pointer transition'>Home</li>
-                    <li className='hover:text-green-500 cursor-pointer transition'>About us</li>
-                    <li className='hover:text-green-500 cursor-pointer transition'>Services</li>
-                    <li className='hover:text-green-500 cursor-pointer transition'>Pages</li>
-                    <li className='hover:text-green-500 cursor-pointer transition'>Blog</li>
-                    <li className='hover:text-green-500 cursor-pointer transition'>Contact</li>
+                    <li><Link to="/" className='hover:text-green-500 cursor-pointer transition'>Home</Link></li>
+                    <li><Link to="/team" className='hover:text-green-500 cursor-pointer transition'>About us</Link></li>
+                    <li><Link to="/services" className='hover:text-green-500 cursor-pointer transition'>Services</Link></li>
+                    <li><Link to="/testimonials" className='hover:text-green-500 cursor-pointer transition'>Pages</Link></li>
+                    <li><Link to="/blog" className='hover:text-green-500 cursor-pointer transition'>Blog</Link></li>
+                    <li><a href='#contact' className='hover:text-green-500 cursor-pointer transition'>Contact</a></li>
                 </ul>
 
                 {/* Right Side Icons and Buttons */}
