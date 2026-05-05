@@ -5,6 +5,11 @@ function DiseaseDetection() {
     const navigate = useNavigate()
     const [selectedDataset, setSelectedDataset] = useState(null)
     const [uploadedFile, setUploadedFile] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [result, setResult] = useState(null)
+    const [error, setError] = useState('')
+
+    const serviceBaseUrl = import.meta.env.VITE_CROP_SERVICE_URL || 'http://localhost:8080'
 
     const handleFileUpload = (e) => {
         setUploadedFile(e.target.files[0])
@@ -16,12 +21,43 @@ function DiseaseDetection() {
     }
 
     const handleProcess = () => {
-        if (selectedDataset) {
-            // Process the data
-            alert('Processing your data...')
-        } else {
+        if (!selectedDataset) {
             alert('Please select or upload a dataset first')
+            return
         }
+
+        if (selectedDataset !== 'upload' || !uploadedFile) {
+            setError('Please upload a crop image or video to run detection.')
+            return
+        }
+
+        setError('')
+        setResult(null)
+        setIsLoading(true)
+
+        const formData = new FormData()
+        formData.append('file', uploadedFile)
+
+        fetch(`${serviceBaseUrl}/upload_file`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(async (response) => {
+                if (!response.ok) {
+                    const message = await response.text()
+                    throw new Error(message || 'Upload failed')
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setResult(data)
+            })
+            .catch((err) => {
+                setError(err.message || 'Something went wrong')
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
     }
 
     return (
@@ -154,11 +190,51 @@ function DiseaseDetection() {
                 <div className='text-center mt-12'>
                     <button 
                         onClick={handleProcess}
-                        className='bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-12 rounded-lg text-lg shadow-lg transition transform hover:scale-105'
+                        className='bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-12 rounded-lg text-lg shadow-lg transition transform hover:scale-105 disabled:opacity-70'
+                        disabled={isLoading}
                     >
-                        Process your Data
+                        {isLoading ? 'Analyzing...' : 'Process your Data'}
                     </button>
                 </div>
+
+                {error && (
+                    <div className='mt-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center'>
+                        {error}
+                    </div>
+                )}
+
+                {result && (
+                    <div className='mt-8 bg-white rounded-xl shadow-lg p-8 border-2 border-green-200'>
+                        <h3 className='text-2xl font-bold text-gray-800 mb-4'>Detection Result</h3>
+                        {result.prediction && (
+                            <div className='text-lg text-gray-700'>
+                                Detected: <span className='font-bold text-green-600'>{result.prediction}</span>
+                            </div>
+                        )}
+                        {result.class_percentages && (
+                            <div>
+                                <p className='text-gray-700 mb-4'>Dominant class and confidence by frames:</p>
+                                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                                    {Object.entries(result.class_percentages).map(([label, value]) => (
+                                        <div key={label} className='bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-gray-700'>
+                                            <span className='font-semibold text-green-700'>{label}</span>: {value.toFixed(2)}%
+                                        </div>
+                                    ))}
+                                </div>
+                                {result.frame_with_highest_class && (
+                                    <div className='mt-6'>
+                                        <p className='text-gray-700 mb-3'>Sample frame:</p>
+                                        <img
+                                            src={`${serviceBaseUrl}${result.frame_with_highest_class}`}
+                                            alt='Detected frame'
+                                            className='w-full max-w-md rounded-lg border border-green-200'
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
             </section>
 
             {/* Information Section */}

@@ -76,7 +76,7 @@ function Services() {
                         className='w-full h-full object-cover'
                     />
                 </div>
-                <div className='absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#0b0f0a]'></div>
+                <div className='absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-[#0b0f0a]'></div>
                 <div className='relative z-10'>
                     <div className='inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-2 rounded-full text-sm mb-6'>
                         <span className='w-2 h-2 bg-lime-400 rounded-full'></span>
@@ -85,7 +85,7 @@ function Services() {
                     <h1 className='text-6xl font-bold mb-6 text-green-400'>Our Premium Services</h1>
                     <p className='text-2xl text-gray-300 max-w-3xl mb-8'>Transform your agriculture with cutting-edge drone technology and AI-powered insights</p>
                     <div className='flex gap-4'>
-                        <button className='bg-gradient-to-r from-lime-500 to-green-600 hover:from-lime-400 hover:to-green-500 px-8 py-3 rounded-full font-bold transition shadow-md shadow-green-500/20'>
+                        <button className='bg-linear-to-r from-lime-500 to-green-600 hover:from-lime-400 hover:to-green-500 px-8 py-3 rounded-full font-bold transition shadow-md shadow-green-500/20'>
                             View Pricing
                         </button>
                         <button className='border-2 border-green-500/60 hover:border-green-400 px-8 py-3 rounded-full font-bold transition'>
@@ -129,7 +129,7 @@ function Services() {
                                 <div className='space-y-1 mb-4'>
                                     {service.features.map((feature, idx) => (
                                         <div key={idx} className='flex items-center text-green-400 text-xs'>
-                                            <svg className='w-4 h-4 mr-2 flex-shrink-0' fill='currentColor' viewBox='0 0 20 20'>
+                                            <svg className='w-4 h-4 mr-2 shrink-0' fill='currentColor' viewBox='0 0 20 20'>
                                                 <path fillRule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' />
                                             </svg>
                                             {feature}

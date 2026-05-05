@@ -199,7 +199,7 @@ function Auth() {
     }
 
     return (
-        <div className='bg-gradient-to-br from-black via-gray-900 to-black min-h-screen flex items-center justify-center py-12 px-4'>
+        <div className='bg-linear-to-br from-black via-gray-900 to-black min-h-screen flex items-center justify-center py-12 px-4'>
             {/* Main Container */}
             <div className='w-full max-w-md'>
                 {/* Card */}
