@@ -66,7 +66,7 @@ function Services() {
     ]
 
     return (
-        <div className='bg-black text-white min-h-screen'>
+        <div className='bg-[#0b0f0a] text-white min-h-screen'>
             {/* Hero Header */}
             <section className='relative py-32 px-16 overflow-hidden'>
                 <div className='absolute inset-0 opacity-30'>
@@ -76,14 +76,19 @@ function Services() {
                         className='w-full h-full object-cover'
                     />
                 </div>
+                <div className='absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#0b0f0a]'></div>
                 <div className='relative z-10'>
+                    <div className='inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-2 rounded-full text-sm mb-6'>
+                        <span className='w-2 h-2 bg-lime-400 rounded-full'></span>
+                        Practical tech for every farm size
+                    </div>
                     <h1 className='text-6xl font-bold mb-6 text-green-400'>Our Premium Services</h1>
                     <p className='text-2xl text-gray-300 max-w-3xl mb-8'>Transform your agriculture with cutting-edge drone technology and AI-powered insights</p>
                     <div className='flex gap-4'>
-                        <button className='bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg font-bold transition'>
+                        <button className='bg-gradient-to-r from-lime-500 to-green-600 hover:from-lime-400 hover:to-green-500 px-8 py-3 rounded-full font-bold transition shadow-md shadow-green-500/20'>
                             View Pricing
                         </button>
-                        <button className='border-2 border-green-600 hover:border-green-500 px-8 py-3 rounded-lg font-bold transition'>
+                        <button className='border-2 border-green-500/60 hover:border-green-400 px-8 py-3 rounded-full font-bold transition'>
                             Request Demo
                         </button>
                     </div>

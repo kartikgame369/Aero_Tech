@@ -40,11 +40,15 @@ function Team() {
     ]
 
     return (
-        <div className='bg-black text-white min-h-screen'>
+        <div className='bg-[#0b0f0a] text-white min-h-screen'>
             {/* Header */}
-            <section className='py-20 px-16 bg-green-600'>
+            <section className='py-20 px-16 bg-gradient-to-r from-lime-500 to-green-600'>
+                <div className='inline-flex items-center gap-2 bg-white/20 border border-white/30 px-4 py-2 rounded-full text-sm mb-6'>
+                    <span className='w-2 h-2 bg-white rounded-full'></span>
+                    People who grow with you
+                </div>
                 <h1 className='text-5xl font-bold mb-6'>Our Team</h1>
-                <p className='text-xl text-gray-100 max-w-2xl'>Meet the experts behind AeroTech</p>
+                <p className='text-xl text-white/90 max-w-2xl'>Meet the experts behind AeroTech</p>
             </section>
 
             {/* Team Members Grid */}

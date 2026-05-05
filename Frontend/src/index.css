@@ -1,1 +1,18 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Manrope:wght@400;500;600&display=swap");
+
+:root {
+	color-scheme: light;
+}
+
+body {
+	font-family: "Manrope", sans-serif;
+	background-color: #0b0f0a;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: "Fraunces", serif;
+}
